@@ -1,45 +1,6 @@
 import datetime
 
 def conv_date_string(date_strs):
-    """
-    Data structure (Dict):
-    ===
-    Key=NumOfWeek, Val=code
-    code = 1 byte = int( X|Sat|Fri|Thu|Wed|Tue|Mon|Sun )
-
-
-    Example:
-    ===
-    holiday_list = ["2016-05-01(SUN)", "2016-05-02(MON)", "2016-05-03(TUE)"]
-    num_of_week, code = conv_date_string(holiday_list)
-    num_of_week, code = 18, 7(0000 0111b)
-
-    if we build the table base on years:
-    holidays = {
-         1: 0, # 0000 0000b
-        ...
-        18: 7,   # 0000 0111b
-        19: 127, # 0111 1111b
-        ...
-        52: 0, # 0000 0000b
-    }
-
-    dates_for_check = ["2016-05-03(TUE)", "2016-05-04(WED)", "2016-05-05(THU)"]
-    num_of_week, code = conv_date_string(dates_for_check)
-    num_of_week, code = 18, 28(0001 1100b)
-
-    Compare:
-    holidays[18] = 0000 0111b
-    query_code   = 0001 1100b (AND)
-    ===============================
-                   0000 0100b
-
-    ANS: weeks 18, Tuedays conflict.
-
-    so, 52 bytes should be cover whole years holidays.
-    code range from 0 ~ 127 (only 7 bit)
-    """
-
     date_code = {}
     for date_str in date_strs:
         date_obj = datetime.datetime.strptime(date_str, "%Y-%m-%d")
